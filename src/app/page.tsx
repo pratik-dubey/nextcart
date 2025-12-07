@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import EditMobileAndRole from "@/components/EditMobileAndRole";
+import Nav from "@/components/Nav";
 import connectDb from "@/lib/db";
 import User from "@/models/user.model";
 import { redirect } from "next/navigation";
@@ -19,7 +20,11 @@ async function Home() {
   if (inComplete) {
     return <EditMobileAndRole />;
   }
-  return <div>hey there</div>;
+  return (
+    <>
+      <Nav user={user} />
+    </>
+  );
 }
 
 export default Home;
