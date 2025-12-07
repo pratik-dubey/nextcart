@@ -1,3 +1,4 @@
+"use client";
 import {
   ArrowLeft,
   EyeIcon,
@@ -15,61 +16,59 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
-type propType = {
-  previousStep: (n: number) => void;
-};
-function RegisterForm({ previousStep }: propType) {
+function LoginForm() {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const session = useSession();
+  // console.log(session);
 
-  const handleRegister = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     try {
-      const result = await axios.post("/api/auth/register", {
-        name,
+      setLoading(true);
+      await signIn("credentials", {
         email,
         password,
       });
-      router.push("/auth/signin");
-      // console.log(result.data);
+      router.push("/");
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   };
+
   return (
     <div
       className="flex flex-col items-center justify-center min-h-screen
 px-6 py-10 bg-white relative"
     >
-      <div
+      {/* <div
         className="absolute top-6 left-6 flex items-center gap-2 text-green-700 hover: text-green-800 transition-colors cursor-pointer"
         onClick={() => previousStep(0)}
       >
         <ArrowLeft className="w-5 h-5" />
         <span className="font-medium">Back</span>
-      </div>
+      </div> */}
       <motion.h1
         initial={{ opacity: 0, y: -25 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="text-4xl font-extrabold text-green-700 mb-2"
       >
-        Create Account
+        Welcome back to Sprynt
       </motion.h1>
       <p className="text-gray-600 mb-2 flex items-center gap-1">
-        Join Sprynt today <Leaf className="h-5 w-5 text-green-600" />
+        Please sign in to continue
+        <Leaf className="h-5 w-5 text-green-600" />
       </p>
       <motion.form
-        onSubmit={handleRegister}
+        onSubmit={handleLogin}
         initial={{
           opacity: 0,
         }}
@@ -81,19 +80,6 @@ px-6 py-10 bg-white relative"
         }}
         className="flex flex-col gap-5 w-full max-w-sm"
       >
-        <div className="relative">
-          <User className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
-
-          <input
-            type="text"
-            placeholder="Your Name"
-            className="w-full border border-gray-300 text-gray-800 
-               focus:ring-2 focus:ring-green-500 focus:outline-none 
-               rounded-xl py-3 pl-10 pr-4"
-            onChange={(e) => setName(e.target.value)}
-            value={name}
-          />
-        </div>
         <div className="relative">
           <Mail className="absolute left-3 top-3.5 w-5 h-5 text-gray-400" />
 
@@ -132,7 +118,7 @@ px-6 py-10 bg-white relative"
           )}
         </div>
         {(() => {
-          const formValidation = name != "" && email != "" && password != "";
+          const formValidation = email != "" && password != "";
           return (
             <button
               disabled={!formValidation || loading}
@@ -144,11 +130,7 @@ px-6 py-10 bg-white relative"
             >
               {/* here we have using animate-spin which is property of tailwing to
               spin the loader icon while the state is loading */}
-              {loading ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                "Register"
-              )}
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Login"}
             </button>
           );
         })()}
@@ -169,13 +151,13 @@ border-gray-300 hover:bg-gray-50 py-3 rounded-xl text-gray-700 font-medium trans
       </motion.form>
       <p
         className=" cursor-pointer flex items-center mt-6 text-gray-600 text-sm gap-1"
-        onClick={() => router.push("/auth/signin")}
+        onClick={() => router.push("/auth/signup")}
       >
-        Already have an account ? <LogIn className="w-4 h-4" />{" "}
-        <span className="text-green-600 font-bold">Signin</span>
+        Create an account ? <LogIn className="w-4 h-4" />{" "}
+        <span className="text-green-600 font-bold">Signup</span>
       </p>
     </div>
   );
 }
 
-export default RegisterForm;
+export default LoginForm;

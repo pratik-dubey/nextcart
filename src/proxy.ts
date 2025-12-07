@@ -1,0 +1,35 @@
+import { getToken } from "next-auth/jwt";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function proxy(req: NextRequest) {
+  //     req.url = RAW URL string (full address in one line)
+  // req.nextUrl = Parsed Next.js URL object (address broken into parts)
+
+  const { pathname } = req.nextUrl;
+  //   console.log(pathname);
+  const publicRoutes = [
+    "/auth/signin",
+    "/auth/signup",
+    "/api/auth",
+    "/_next",
+    "/favicon.ico",
+  ];
+  //   console.log(req.url);
+  if (publicRoutes.some((path) => pathname.startsWith(path))) {
+    return NextResponse.next();
+  }
+  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+  if (!token) {
+    //       And when you pass a relative path ("/auth/signin") to new URL(),
+    // it ALWAYS attaches it to the origin, NOT to the path.
+    const loginUrl = new URL("/auth/signin", req.url);
+    loginUrl.searchParams.set("callbackUrl", req.url);
+    return NextResponse.redirect(loginUrl);
+  }
+  return NextResponse.next();
+}
+
+// The routes you mention inside (?! ... ) are totally ignored by middleware.
+export const config = {
+  matcher: "/((?!api/auth|auth|_next/static|_next/image|favicon.ico).*)",
+};
