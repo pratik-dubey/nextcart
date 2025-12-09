@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { motion } from "motion/react";
 import { ArrowRight, Bike, User, UserCog } from "lucide-react";
 import axios from "axios";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 function EditMobileAndRole() {
   const [roles, setRoles] = useState([
     { id: "admin", label: "Admin", icon: UserCog },
@@ -12,6 +12,7 @@ function EditMobileAndRole() {
   ]);
   const [selectedRole, setSelectedRole] = useState("");
   const [mobile, setMobile] = useState("");
+  const router = useRouter();
 
   const handleEdit = async () => {
     try {
@@ -20,7 +21,7 @@ function EditMobileAndRole() {
         mobile,
       });
       // console.log(result.data);
-      redirect("/");
+      router.push("/");
     } catch (error) {
       console.log(error);
     }

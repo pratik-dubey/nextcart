@@ -48,10 +48,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             email: user.email,
             image: user.image,
           });
+        } else if (!dbUser.image && user.image) {
+          // अगर पुराना यूज़र बिना image के है तो Google से मिली image सेव कर दें
+          dbUser.image = user.image;
+          await dbUser.save();
         }
 
         user.id = dbUser._id.toString();
         user.role = dbUser.role;
+        user.image = dbUser.image || user.image;
       }
       return true;
     },
