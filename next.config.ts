@@ -11,7 +11,10 @@ const nextConfig: NextConfig = {
 
   // here we have specified next js Image from next/image that from which source image of user is coming
   images: {
-    remotePatterns: [{ hostname: "lh3.googleusercontent.com" }],
+    remotePatterns: [
+      { hostname: "lh3.googleusercontent.com" },
+      { hostname: "images.unsplash.com" },
+    ],
   },
 };
 
