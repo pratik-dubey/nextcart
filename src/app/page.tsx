@@ -20,9 +20,12 @@ async function Home() {
   if (inComplete) {
     return <EditMobileAndRole />;
   }
+
+  // stringified json data to plain data before passing it to client component else it cannot parse it
+  const plainUser = JSON.parse(JSON.stringify(user));
   return (
     <>
-      <Nav user={user} />
+      <Nav user={plainUser} />
     </>
   );
 }
