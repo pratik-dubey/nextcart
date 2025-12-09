@@ -64,6 +64,7 @@ items-center justify-center rounded-full font-semibold shadow"
 justify-center overflow-hidden shadow-md hover:scale-105
 transition-transform relative"
         >
+          {/* next js me user ki image dikhane se pehle hume next.config.ts me source batan padta hai , jaise yha image google se aa rhi hai   */}
           {user.image ? (
             <Image
               src={user.image}
