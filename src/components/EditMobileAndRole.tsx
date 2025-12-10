@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { ArrowRight, Bike, User, UserCog } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 function EditMobileAndRole() {
   const [roles, setRoles] = useState([
     { id: "admin", label: "Admin", icon: UserCog },
@@ -11,6 +12,7 @@ function EditMobileAndRole() {
     { id: "deliveryBoy", label: "Delivery Boy", icon: Bike },
   ]);
   const [selectedRole, setSelectedRole] = useState("");
+  const { update } = useSession();
   const [mobile, setMobile] = useState("");
   const router = useRouter();
 
@@ -20,6 +22,9 @@ function EditMobileAndRole() {
         role: selectedRole,
         mobile,
       });
+      // Now we need to update the role according to the selected role using update function by useSeeeion() and we'll trigger update function in auth.ts in callback
+
+      await update({ role: selectedRole });
       // console.log(result.data);
       router.push("/");
     } catch (error) {

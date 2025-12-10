@@ -61,12 +61,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
     /// ab jo jwt next auth automatically create karega usme hum user ki details dalenge in callbacks
-    jwt({ token, user }) {
+    jwt({ token, user, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
         token.role = user.role;
+      }
+      if (trigger == "update") {
+        token.role = session.role;
       }
       return token;
     },
