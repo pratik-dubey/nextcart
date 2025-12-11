@@ -31,14 +31,18 @@ function LoginForm() {
     e.preventDefault();
     try {
       setLoading(true);
-      await signIn("credentials", {
-        email,
+      const normalizedEmail = email.trim().toLowerCase();
+      const result = await signIn("credentials", {
+        email: normalizedEmail,
         password,
+        redirect: false,
       });
-      router.push("/");
+
+      if (result?.ok) {
+        router.push("/");
+      }
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   };

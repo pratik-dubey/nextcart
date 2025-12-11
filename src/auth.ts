@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import User from "./models/user.model";
-import { error } from "console";
 import bcrypt from "bcryptjs";
 import connectDb from "./lib/db";
 import Google from "next-auth/providers/google";
@@ -15,15 +14,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       async authorize(credentials, req) {
         await connectDb();
-        const email = credentials.email;
-        const password = credentials.password as string;
+        const normalizedEmail = credentials.email?.trim().toLowerCase();
+        const password = credentials.password as string | undefined;
 
-        const user = await User.findOne({ email });
+        if (!normalizedEmail || !password) {
+          return null;
+        }
+
+        const user = await User.findOne({ email: normalizedEmail });
         if (!user) {
-          throw new Error("User does not exists !");
+          return null;
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+          return null;
+        }
+
         return {
           id: user._id.toString(),
           email: user.email,

@@ -7,7 +7,15 @@ export async function POST(req: NextRequest) {
   try {
     await connectDb();
     const { name, email, password } = await req.json();
-    const existUser = await User.findOne({ email });
+    const normalizedEmail = email?.trim().toLowerCase();
+    if (!normalizedEmail || !password || !name?.trim()) {
+      return NextResponse.json(
+        { message: "Name, email, and password are required" },
+        { status: 400 }
+      );
+    }
+
+    const existUser = await User.findOne({ email: normalizedEmail });
     if (existUser) {
       return NextResponse.json(
         { message: "email already exist!" },
@@ -24,9 +32,9 @@ export async function POST(req: NextRequest) {
 
     const hashedPassword = await bcrypt.hash(password, 8);
     const user = await User.create({
-      name,
+      name: name.trim(),
       password: hashedPassword,
-      email,
+      email: normalizedEmail,
     });
 
     return NextResponse.json(
