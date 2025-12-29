@@ -107,7 +107,7 @@ text-green-200 capitalize tracking-wide"
             </div>
             <div className="flex flex-col gap-3 mt-8 font-medium">
               <Link
-                href={""}
+                href={"/admin/add-grocery"}
                 className="flex items-center gap-3 p-3 bg-white/10 hover:bg-white-20 hover:pl-4 rounded-lg transition-all"
               >
                 <PlusCircle className="w-5 h-5" /> Add Grocery
@@ -216,7 +216,7 @@ items-center justify-center rounded-full font-semibold shadow"
           <>
             <div className="hidden md:flex items-center gap-4">
               <Link
-                href={""}
+                href={"/admin/add-grocery"}
                 className="flex items-center gap-2 bg-white text-green-700
 font-semibold px-4 py-2 rounded-full hover:bg-green-100 transition-all"
               >

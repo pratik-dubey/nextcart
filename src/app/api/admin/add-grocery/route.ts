@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import uploadOnCoudinary from "@/lib/cloudinary";
+import uploadOnCloudinary from "@/lib/cloudinary";
 import connectDb from "@/lib/db";
 import Grocery from "@/models/grocery.model";
 import { NextRequest, NextResponse } from "next/server";
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     let imageUrl;
     if (file) {
-      imageUrl = await uploadOnCoudinary(file);
+      imageUrl = await uploadOnCloudinary(file);
     }
 
     const grocery = await Grocery.create({

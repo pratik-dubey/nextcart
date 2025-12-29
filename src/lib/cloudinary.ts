@@ -10,7 +10,7 @@ cloudinary.config({
 
 // now we'll write a function which will take file and convert it to first arrayBuffer and then to buffer which will be finally stored on cloudinary in node js setup and return a promise
 
-const uploadOnCoudinary = async (file: Blob): Promise<string | null> => {
+const uploadOnCloudinary = async (file: Blob): Promise<string | null> => {
   if (!file) {
     return null;
   }
@@ -37,4 +37,4 @@ const uploadOnCoudinary = async (file: Blob): Promise<string | null> => {
   }
 };
 
-export default uploadOnCoudinary;
+export default uploadOnCloudinary;
