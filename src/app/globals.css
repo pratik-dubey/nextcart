@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+
+/* Scrollbar dikhai nahi deta Scrolling abhi bhi hoti hai (mouse wheel, touchpad, etc.) Cross-browser compatible hai Kisi bhi element par class="scrollbar-hide" add karke use kar sakte ho */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}

@@ -46,6 +46,7 @@ function HeroSection() {
     }, 3000);
     return () => clearInterval(timer);
   }, []);
+
   return (
     <div className="relative w-[98%] mx-auto mt-24 md:mt-28 h-[70vh] md:h-[80vh] rounded-3xl overflow-hidden shadow-2xl bg-gray-100">
       {/* mode wait is added to wait for amimating current slide and then animate next slide and animate presence also used for same appearing animation */}
