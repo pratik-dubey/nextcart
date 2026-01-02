@@ -3,8 +3,6 @@
 // aur tumhara code fir se run hota hai.
 // Matlab agar tumne likha:
 
-// js
-
 // mongoose.connect(MONGO_URL)
 
 // to ye line har baar execute hogi
@@ -15,9 +13,9 @@
 // => => so the solution is that we store mongodb database connection in Global cache provided by Next js so that no subsequent mongo connections are being made during hot replacement
 
 import mongoose from "mongoose";
-const mongodbUr1 = process.env.MONGODB_URL;
+const mongodbUrl = process.env.MONGODB_URL;
 
-if (!mongodbUr1) {
+if (!mongodbUrl) {
   throw new Error("db error");
 }
 let cached = global.mongoose;
@@ -34,7 +32,7 @@ const connectDb = async () => {
 
   if (!cached.promise) {
     cached.promise = mongoose
-      .connect(mongodbUr1)
+      .connect(mongodbUrl)
       .then((conn) => conn.connection);
   }
   try {
