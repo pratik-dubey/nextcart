@@ -10,6 +10,7 @@ import L, { LatLngExpression } from "leaflet";
 import 'leaflet/dist/leaflet.css'
 import axios from "axios";
 import { OpenStreetMapProvider } from "leaflet-geosearch";
+import OrderSuccess from "../order-success/page";
 
 const markerIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/128/10740/10740589.png",
@@ -76,7 +77,7 @@ function Checkout() {
         try {
           if(!position)return;
           const result = await axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${position[0]}&lon=${position[1]}&format=json`)
-          console.log(result.data);
+          // console.log(result.data);
           if(result.data.address){
             setAddress((prev) => ({ ...prev, city: result.data.address.city, state: result.data.address.state, pincode: result.data.address.postcode, fullAddress: result.data.display_name }))
           }
@@ -104,6 +105,75 @@ function Checkout() {
                     setPosition([latitude, longitude])
                 }, (err) => { console.log('location error', err) }, { enableHighAccuracy: true, maximumAge: 0, timeout: 10000 })
             }
+     }
+
+     const handleCod = async() => {
+        //  if(!position)return null;
+
+         try {
+          const result = await axios.post("/api/user/order", {
+            userId: userData?._id,
+            items: cartData.map((item) => ({
+              grocery: item._id,
+            name: item.name,
+            price: item.price,
+            unit: item.unit,
+            image: item.image,
+            quantity: item.quantity
+            })),
+            totalAmount: finalTotal,
+            address: {
+              fullName:address.fullName,
+            mobile:address.mobile,
+            city:address.city,
+            state:address.state,
+            fullAddress:address.fullAddress,
+            pincode:address.pincode,
+            latitude: position ? position[0] : null,
+            longitude: position ? position[1] : null
+            },
+            paymentMethod
+
+            
+          })
+
+          console.log(result.data)
+          router.push("/user/order-success")
+         } catch (error) {
+          console.log("Axios error:", error);
+         }
+     }
+
+     const handleOnlinePayment = async () => {
+      try {
+        const result = await axios.post("/api/user/payment", {
+          userId: userData?._id,
+          items: cartData.map((item) => ({
+            grocery: item._id,
+          name: item.name,
+          price: item.price,
+          unit: item.unit,
+          image: item.image,
+          quantity: item.quantity
+          })),
+          totalAmount: finalTotal,
+          address: {
+            fullName:address.fullName,
+          mobile:address.mobile,
+          city:address.city,
+          state:address.state,
+          fullAddress:address.fullAddress,
+          pincode:address.pincode,
+          latitude: position ? position[0] : null,
+          longitude: position ? position[1] : null
+          },
+          paymentMethod
+        })
+// line used to redirect window and user to a location with href = url returned by session created by stripe in /api/user/payment api
+        window.location.href = result.data.url
+      } catch (error) {
+        console.log(error)
+      }
      }
   return (
     <div className="w-[92%] md:w-[80%] mx-auto py-10 relative">
@@ -199,7 +269,7 @@ function Checkout() {
             <CreditCard className="text-green-600" />
             Payment Method
           </h2>
-          <div className="space-y-4" mb-6>
+          <div className="space-y-4 mb-6">
           <button 
                        onClick={()=>setPaymentMethod("online")}
                        className={`flex items-center gap-3 w-full border rounded-lg p-3 transition-all ${
@@ -236,13 +306,13 @@ function Checkout() {
                     </div>
 
                     <motion.button whileTap={{scale:0.93}} className='w-full mt-6 bg-green-600 text-white py-3 rounded-full hover:bg-green-700 transition-all font-semibold'
-                    // onClick={()=>{
-                    //     if(paymentMethod=="cod"){
-                    //         handleCod()
-                    //     }else{
-                    //        handleOnlinePayment()
-                    //     }
-                    // }}
+                    onClick={()=>{
+                        if(paymentMethod=="cod"){
+                            handleCod()
+                        }else{
+                           handleOnlinePayment()
+                        }
+                    }}
                     >
 {paymentMethod=="cod"?"Place Order":"pay & Place Order"}
 

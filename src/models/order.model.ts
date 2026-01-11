@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 export interface IOrder {
     _id?: mongoose.Types.ObjectId
-    user: mongoose.Types.ObjectId
+    userId: mongoose.Types.ObjectId
     items: [
         {
             grocery: mongoose.Types.ObjectId,
@@ -14,6 +14,7 @@ export interface IOrder {
         }
     ]
     ,
+    isPaid:boolean,
     totalAmount: number,
     paymentMethod: "cod" | "online"
     address: {
@@ -32,7 +33,7 @@ export interface IOrder {
 }
 
 const orderSchema = new mongoose.Schema<IOrder>({
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
@@ -55,6 +56,10 @@ const orderSchema = new mongoose.Schema<IOrder>({
         type: String,
         enum: ["cod", "online"],
         default: "cod"
+    },
+    isPaid: {
+        type:Boolean,
+        default:false
     },
     totalAmount: Number,
     address: {
