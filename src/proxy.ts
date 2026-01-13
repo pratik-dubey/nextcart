@@ -63,6 +63,11 @@ export async function proxy(req: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname.startsWith("/api/socket")) {
+    return NextResponse.next();
+  }
+  
+
   const publicRoutes = [
     "/auth/signin",
     "/auth/signup",

@@ -5,6 +5,8 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 function HeroSection() {
+
+// connecting every user to socket.io and generating their unique socket id and a socket id means , user is online
   const slides = [
     {
       id: 1,
