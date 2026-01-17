@@ -123,7 +123,7 @@ text-green-200 capitalize tracking-wide"
                 View Grocery
               </Link>
               <Link
-                href={""}
+                href={"/admin/manage-orders"}
                 className="flex items-center gap-3 p-3 bg-white/10 hover:bg-white-20 hover:pl-4 rounded-lg transition-all"
               >
                 <ClipboardCheck />

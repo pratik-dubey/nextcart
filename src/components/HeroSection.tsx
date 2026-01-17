@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 function HeroSection() {
+  // const [loading, setLoading] = useState(true);
 
 // connecting every user to socket.io and generating their unique socket id and a socket id means , user is online
   const slides = [
@@ -42,12 +43,32 @@ function HeroSection() {
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // useEffect(() => {
+  //   const loaderTimer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 3000);
+  
+  //   return () => clearTimeout(loaderTimer);
+  // }, []);
+  
   useEffect(() => {
+    // if(loading)return
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 3000);
     return () => clearInterval(timer);
   }, []);
+
+  // if (loading) {
+  //   return (
+  //     <div className="fixed inset-0 flex items-center justify-center bg-black text-white z-50">
+  //       <h1 className="text-5xl md:text-7xl font-extrabold tracking-wider">
+  //         NextCart
+  //       </h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="relative w-[98%] mx-auto mt-24 md:mt-28 h-[70vh] md:h-[80vh] rounded-3xl overflow-hidden shadow-2xl bg-gray-100">

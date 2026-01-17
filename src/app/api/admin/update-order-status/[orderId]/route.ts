@@ -1,4 +1,5 @@
 import connectDb from "@/lib/db";
+import emitEventHandler from "@/lib/emitEventHandler";
 import DeliveryAssignment from "@/models/deliveryAssigment.model";
 import Order from "@/models/order.model";
 import User from "@/models/user.model";
@@ -48,9 +49,8 @@ export async function POST(req: NextRequest, { params }: { params: { orderId: st
             const candidates = availableDeliveryBoys.map(b => b._id)
 
             if (candidates.length == 0) {
+                await emitEventHandler("order-status-update", { orderId: order._id, status: order.status })
                 await order.save()
-
-                // await emitEventHandler("order-status-update", { orderId: order._id, status: order.status })
 
                 return NextResponse.json(
                     { message: "No available Delivery boys nearby" },
@@ -63,7 +63,13 @@ export async function POST(req: NextRequest, { params }: { params: { orderId: st
                 broadcastedTo:candidates,
                 status:"broadcasted"
              })
-
+             await deliveryAssignment.populate("order")
+             for(const boyId of candidates){
+                const boy=await User.findById(boyId)
+                if(boy.socketId){
+                    await emitEventHandler("new-assignment",deliveryAssignment,boy.socketId)
+                }
+             }
              order.assignment=deliveryAssignment._id
 
              // deliveryBoysPayload is being sent to admin so that he can see whom are being broadcasted 
@@ -77,9 +83,9 @@ export async function POST(req: NextRequest, { params }: { params: { orderId: st
              await deliveryAssignment.populate("order")
         }
 
+        await emitEventHandler("order-status-update",{orderId:order._id,status:order.status})
         await order.save()
         await order.populate("userId")
-
         return NextResponse.json({
             assignment:order.assignment?._id,
             availableBoys:deliveryBoysPayload

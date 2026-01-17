@@ -8,7 +8,7 @@ export async function GET(req:NextRequest) {
         await connectDb()
         const session = await auth()
 
-        const orders = await Order.find({userId:session?.user?.id}).populate("userId").sort({createdAt:-1})
+        const orders = await Order.find({userId:session?.user?.id}).populate("userId assignedDeliveryBoy" ).sort({createdAt:-1})
         if(!orders) {
             return NextResponse.json({message:"order not found"},{status:400})
         }
