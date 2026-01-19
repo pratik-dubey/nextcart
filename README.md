@@ -1,4 +1,8 @@
-**🛒 NextCart — Smart Real‑time Grocery Ordering Platform**
+## 🚀 **NextCart** 
+## *Real-time Quick E-Commerce & Delivery Platform*
+**Next.js 14 • Socket.IO • Stripe • MongoDB • AI Chat**
+
+```bash
 NextCart is a production-grade full-stack grocery delivery platform built with Next.js 14 (App Router), TypeScript, MongoDB, and Socket.IO.
 It delivers seamless experiences for customers, delivery partners, and administrators through real-time communication, AI chat, secure payments, and live tracking.
 
@@ -21,92 +25,123 @@ It delivers seamless experiences for customers, delivery partners, and administr
 
 🎨 Responsive UI: Tailwind CSS + Redux Toolkit state and  animations via Motion
 
-
+```
 **🖼️ Screenshots**
 📂 NextCart/screenshots/
 
-User: Login | Dashboard | Grocery Store | Cart | Orders | Stripe | Tracking | AI Chat
-Delivery: Dashboard | Assignment | Map | OTP
-Admin: Dashboard | Groceries | Orders
+ ## **User :-** 
+
+ ## **Login :**  
+ 
+ <img width="1917" height="1019" alt="Screenshot 2026-01-19 204348" src="https://github.com/user-attachments/assets/c20e74ed-9c75-4628-9467-61a94f841616" />
+ 
+
+ :- ## **Dashboard and Grocery Store :**
+ 
+ <img width="1899" height="912" alt="Screenshot 2026-01-19 195641" src="https://github.com/user-attachments/assets/27dd2e3e-d5c4-4251-8e91-6eed5799b2fe" />
+ <img width="1899" height="910" alt="Screenshot 2026-01-19 195730" src="https://github.com/user-attachments/assets/dd677692-1bb5-4f62-a2ac-f0fc77fa58cc" /> 
+ 
+ ## **Cart and Checkout :**  
+ 
+ <img width="1901" height="909" alt="Screenshot 2026-01-19 203535" src="https://github.com/user-attachments/assets/ea4a2594-af55-4ab9-a842-06f528516960" />
+ <img width="1901" height="916" alt="Screenshot 2026-01-19 195955" src="https://github.com/user-attachments/assets/85317dc1-5c1d-4274-b167-13de30b43501" />
+
+ ## **Orders :**  
+ 
+ <img width="1897" height="913" alt="Screenshot 2026-01-19 203252" src="https://github.com/user-attachments/assets/8efa1b3b-0250-4a87-8051-5642e105ad0b" />
+
+ ## **Stripe :**  
+ 
+ <img width="1899" height="1017" alt="Screenshot 2026-01-19 200140" src="https://github.com/user-attachments/assets/ca4577aa-e521-4562-96af-b4b9d4c505d1" />
+ <img width="1912" height="965" alt="Screenshot 2026-01-19 200218" src="https://github.com/user-attachments/assets/d231ede7-0806-47a5-ab63-b94f58385bd1" />
+
+  ## **Tracking :**  
+ 
+ <img width="1900" height="1001" alt="Screenshot 2026-01-19 201401" src="https://github.com/user-attachments/assets/07720a2b-f7ba-4176-9a88-8423f150251e" />
+
+ ## **AI Chat :**  
+
+ <img width="1906" height="1014" alt="Screenshot 2026-01-19 202742" src="https://github.com/user-attachments/assets/856bde54-44d6-47d1-b4f0-5bbb6a57d801" />
+
+## **Delivery-Boy :-**  
+
+## **Dashboard :**  
+
+<img width="1900" height="907" alt="Screenshot 2026-01-19 194041" src="https://github.com/user-attachments/assets/1c3acf5d-012e-4416-ad05-7f6b07458f38" />
+
+## **Assignment :**  
+
+<img width="1919" height="913" alt="Screenshot 2026-01-19 200953" src="https://github.com/user-attachments/assets/d78d8128-a996-480a-8dc9-46ba70e422df" />
+
+## **Live Map Tracking :**  
+
+<img width="1900" height="1001" alt="Screenshot 2026-01-19 201401" src="https://github.com/user-attachments/assets/115bc725-03b3-4462-90d0-8520624cc664" />
+
+## **OTP :**  
+
+<img width="1912" height="912" alt="Screenshot 2026-01-19 204041" src="https://github.com/user-attachments/assets/6dc919ad-c6b6-4837-a7e2-e3ac8a49b84d" />
+<img width="1901" height="906" alt="Screenshot 2026-01-19 204117" src="https://github.com/user-attachments/assets/4cb67a12-feb6-4f6d-a766-d032dec05c83" />
 
 
-**📁 Detailed Project Structure**
+## **Admin :-**  
 
-NextCart/ (Root Directory)
-├── nextcart/ (Next.js Full-stack Application)
+:- ## **Dashboard :**  
+
+<img width="1898" height="866" alt="Screenshot 2026-01-19 194357" src="https://github.com/user-attachments/assets/b85f361c-fcb3-41eb-b96a-cf672c5693a2" />
+
+:- ## **Groceries :**  
+
+<img width="1902" height="868" alt="Screenshot 2026-01-19 192823" src="https://github.com/user-attachments/assets/c14d15c8-3703-4ffd-8647-7a09a0b11d54" />
+<img width="1898" height="864" alt="Screenshot 2026-01-19 192930" src="https://github.com/user-attachments/assets/d63434b4-939a-4012-adcf-8b4b2044005b" />
+
+ ## **Orders :**  
+
+<img width="1904" height="868" alt="Screenshot 2026-01-19 195050" src="https://github.com/user-attachments/assets/8a4fedc2-6b4c-4ebd-9cb6-dd249551ef9d" />
+
+```
+## 📁 Project Structure
+
+NextCart/
+├── nextcart/                    # Next.js Full-stack App
 │   ├── src/
-│   │   ├── app/ (App Router - Pages & Routes)
+│   │   ├── app/                 # App Router (Pages + APIs)
 │   │   │   ├── api/
-│   │   │   │   ├── admin/
+│   │   │   │   ├── admin/       # 6 Admin endpoints
 │   │   │   │   │   ├── add-grocery/
 │   │   │   │   │   ├── edit-grocery/
 │   │   │   │   │   ├── delete-grocery/
 │   │   │   │   │   ├── get-groceries/
-│   │   │   │   │   ├── get-orders/
-│   │   │   │   │   └── update-order-status/[orderId]/
-│   │   │   │   ├── user/
-│   │   │   │   │   ├── payment/
+│   │   │   │   │   └── get-orders/
+│   │   │   │   ├── user/        # 8 User endpoints
 │   │   │   │   │   ├── order/
 │   │   │   │   │   ├── my-orders/
-│   │   │   │   │   ├── get-order/[orderId]/
-│   │   │   │   │   ├── edit-role-mobile/
 │   │   │   │   │   └── stripe/webhook/
-│   │   │   │   ├── delivery/
+│   │   │   │   ├── delivery/    # 6 Delivery endpoints
 │   │   │   │   │   ├── get-assignments/
 │   │   │   │   │   ├── current-order/
-│   │   │   │   │   ├── assignment/[id]/accept-assignment/
-│   │   │   │   │   └── otp/
-│   │   │   │   │       ├── send/
-│   │   │   │   │       └── verify/
-│   │   │   │   ├── chat/
+│   │   │   │   │   └── otp/ (send/verify)
+│   │   │   │   ├── chat/        # 3 Chat endpoints
 │   │   │   │   │   ├── messages/
-│   │   │   │   │   ├── save/
 │   │   │   │   │   └── ai-suggestions/
-│   │   │   │   ├── socket/
-│   │   │   │   │   ├── connect/
-│   │   │   │   │   └── update-location/
-│   │   │   │   ├── auth/
-│   │   │   │   │   ├── [...nextauth]/
-│   │   │   │   │   └── register/
-│   │   │   │   ├── me/
-│   │   │   │   └── check-for-admin/
-│   │   │   ├── admin/ (Admin Dashboard Pages)
-│   │   │   ├── user/ (User Dashboard Pages)
-│   │   │   ├── delivery/ (Delivery Partner Pages)
-│   │   │   ├── login/
-│   │   │   ├── register/
-│   │   │   ├── unauthorized/
-│   │   │   ├── app/
-│   │   │   │   ├── layout.tsx
-│   │   │   │   └── page.tsx
-│   │   │   └── globals.css
-│   │   ├── components/ (19 React Components)
-│   │   │   ├── ui/
-│   │   │   ├── maps/
-│   │   │   ├── charts/
-│   │   │   └── forms/
-│   │   ├── lib/
-│   │   │   ├── cloudinary.ts (Image upload service)
-│   │   │   ├── db.ts (MongoDB connection)
-│   │   │   ├── mailer.ts (Nodemailer service)
-│   │   │   ├── socket.ts (Socket.IO client)
-│   │   │   └── emitEventHandler.ts (Event handlers)
-│   │   ├── models/ (5 MongoDB Schemas)
-│   │   ├── redux/ (State Management)
-│   │   ├── hooks/ (Custom React Hooks)
-│   │   ├── auth.ts (NextAuth config)
-│   │   ├── proxy.ts (API proxy config)
-│   │   ├── Provider.tsx (Global providers)
-│   │   └── InitUser.tsx (Session bootstrap)
-│   ├── public/ (Static Assets)
-│   ├── package.json
-│   ├── tsconfig.json
-│   ├── next.config.ts
-│   └── eslint.config.mjs
-└── socketServer/ (Standalone Socket.IO Server)
-    ├── index.js (Main socket server)
-    ├── package.json
-    └── .env (Socket server config)
+│   │   │   │   └── auth/        # NextAuth
+│   │   │   ├── admin/           # Admin Dashboard Pages
+│   │   │   ├── user/            # User Pages
+│   │   │   ├── delivery/        # Delivery Pages
+│   │   │   └── login/register/
+│   │   ├── components/          # 19 React Components
+│   │   ├── lib/                 # Core Services
+│   │   │   ├── cloudinary.ts
+│   │   │   ├── db.ts
+│   │   │   ├── mailer.ts
+│   │   │   └── socket.ts
+│   │   ├── models/              # 5 MongoDB Schemas
+│   │   └── redux/               # State Management
+│   ├── public/
+│   └── package.json
+└── socketServer/                # Socket.IO Server
+    ├── index.js
+    └── package.json
+
 
 
 **🧾 Tech Stack**
@@ -217,7 +252,6 @@ Chat: Real-time messaging + AI suggestions
 Socket: Location updates, assignments, live events
 
 All APIs are implemented using Next.js App Router (app/api/*).
-
 
 **📊 Architecture Overview**
 Frontend (Next.js 14) → API Routes → MongoDB
