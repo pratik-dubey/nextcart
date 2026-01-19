@@ -1,8 +1,8 @@
-🛒 NextCart — Smart Real‑time Grocery Ordering Platform
+**🛒 NextCart — Smart Real‑time Grocery Ordering Platform**
 NextCart is a production-grade full-stack grocery delivery platform built with Next.js 14 (App Router), TypeScript, MongoDB, and Socket.IO.
 It delivers seamless experiences for customers, delivery partners, and administrators through real-time communication, AI chat, secure payments, and live tracking.
 
-🌟 Core Features
+**🌟 Core Features**
 🔐 Multi-Role Auth: Admin/User/Delivery via NextAuth.js + Google OAuth
 
 💳 Dual Payments: Stripe Checkout + COD with webhook verification
@@ -21,7 +21,16 @@ It delivers seamless experiences for customers, delivery partners, and administr
 
 🎨 Responsive UI: Tailwind CSS + Redux Toolkit state and  animations via Motion
 
-📁 Detailed Project Structure
+
+**🖼️ Screenshots**
+📂 NextCart/screenshots/
+
+User: Login | Dashboard | Grocery Store | Cart | Orders | Stripe | Tracking | AI Chat
+Delivery: Dashboard | Assignment | Map | OTP
+Admin: Dashboard | Groceries | Orders
+
+
+**📁 Detailed Project Structure**
 
 NextCart/ (Root Directory)
 ├── nextcart/ (Next.js Full-stack Application)
@@ -83,15 +92,7 @@ NextCart/ (Root Directory)
 │   │   │   ├── socket.ts (Socket.IO client)
 │   │   │   └── emitEventHandler.ts (Event handlers)
 │   │   ├── models/ (5 MongoDB Schemas)
-│   │   │   ├── User.ts
-│   │   │   ├── Order.ts
-│   │   │   ├── Grocery.ts
-│   │   │   ├── DeliveryAssignment.ts
-│   │   │   └── Message.ts
 │   │   ├── redux/ (State Management)
-│   │   │   ├── store.ts
-│   │   │   ├── cartSlice.ts
-│   │   │   └── userSlice.ts
 │   │   ├── hooks/ (Custom React Hooks)
 │   │   ├── auth.ts (NextAuth config)
 │   │   ├── proxy.ts (API proxy config)
@@ -108,20 +109,13 @@ NextCart/ (Root Directory)
     └── .env (Socket server config)
 
 
-🖼️ Screenshots
-📂 NextCart/screenshots/
-
-User: Login | Dashboard | Grocery Store | Cart | Orders | Stripe | Tracking | AI Chat
-Delivery: Dashboard | Assignment | Map | OTP
-Admin: Dashboard | Groceries | Orders
-
-🧾 Tech Stack
+**🧾 Tech Stack**
 Frontend: Next.js 14, TypeScript, Tailwind CSS, Redux Toolkit, Recharts, Leaflet
 Backend: Next.js API Routes, Socket.IO, NextAuth.js
 Database: MongoDB (Mongoose ORM)
 Integrations: Stripe, Cloudinary, Gemini API, Nodemailer (Gmail)
 
-⚙️ Installation & Setup
+**⚙️ Installation & Setup**
 1. Clone Repository
 bash
 git clone https://github.com/your-username/NextCart.git
@@ -208,9 +202,7 @@ Add groceries via admin panel
 
 Place test order and verify delivery flow
 
-flow
-
-API Overview (High-Level)
+**API Overview (High-Level)**
 
 Auth: Registration, login, Google OAuth
 
@@ -227,7 +219,7 @@ Socket: Location updates, assignments, live events
 All APIs are implemented using Next.js App Router (app/api/*).
 
 
-📊 Architecture Overview
+**📊 Architecture Overview**
 Frontend (Next.js 14) → API Routes → MongoDB
                     ↓
 Socket.IO Server ←→ Real-time Updates (Location, Chat, Orders)
@@ -250,7 +242,7 @@ Database: MongoDB Atlas
 Status: Deploying Soon
 
 
-Author
+**Author**
 
 Pratik Dubey
 B.Tech Information Technology
