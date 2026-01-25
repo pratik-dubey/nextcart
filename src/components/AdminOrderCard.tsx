@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp, CreditCard, MapPin, Package, Phone, Truck, User
 import Image from 'next/image'
 import axios from 'axios'
 import { IUser } from '@/models/user.model'
+import { getSocket } from '@/lib/socket'
 
 interface IOrder {
     _id?: string
@@ -57,6 +58,16 @@ function AdminOrderCard({ order }: { order: IOrder }) {
             console.log(error)
         }
     }
+
+    useEffect(():any => {
+        const socket = getSocket()
+        socket.on("order-status-update", (data) => {
+            if(data.orderId.toString() == order._id?.toString()) {
+                setStatus(data.status)
+            }
+        })
+        return () => socket.off("order-status-update")
+    }, [])
     return (
         <motion.div
             key={order._id?.toString()}
@@ -71,13 +82,12 @@ function AdminOrderCard({ order }: { order: IOrder }) {
                         <Package size={20} />
                         Order #{order._id?.toString().slice(-6)}
                     </p>
-
-                    <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full border ${order.isPaid
+                    {status != "delivered" &&                     <span className={`inline-block text-xs font-semibold px-3 py-1 rounded-full border ${order.isPaid
                         ? "bg-green-100 text-green-700 border-green-300"
                         : "bg-red-100 text-red-700 border-red-300"
                         }`}>
                         {order.isPaid ? "Paid" : "Unpaid"}
-                    </span>
+                    </span>}
 
                     <p className='text-gray-500 text-sm'>
                         {new Date(order.createdAt!).toLocaleString()}
@@ -125,14 +135,16 @@ function AdminOrderCard({ order }: { order: IOrder }) {
                         }`}>
                         {status}
                     </span>
-                    <select className='border border-gray-300 rounded-lg px-3 py-1 text-sm shadow-sm hover:border-green-400 transition focus:ring-2 focus:ring-green-500 outline-none'
+
+                    {status != "delivered" &&                     <select className='border border-gray-300 rounded-lg px-3 py-1 text-sm shadow-sm hover:border-green-400 transition focus:ring-2 focus:ring-green-500 outline-none'
                         value={status}
                         onChange={(e) => updateStatus(order._id?.toString()!, e.target.value)}
                     >
                         {statusOptions.map(st => (
                             <option key={st} value={st}>{st.toUpperCase()}</option>
                         ))}
-                    </select>
+                    </select>}
+
                 </div>
             </div>
 

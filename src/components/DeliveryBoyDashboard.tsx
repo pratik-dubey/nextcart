@@ -55,6 +55,7 @@ function DeliveryBoyDashboard() {
   const handleAccept = async (id: string) => {
     try {
       const result = await axios.get(`/api/delivery/assignment/${id}/accept-assignment`)
+      fetchCurrentOrder()
       console.log(result.data)
     } catch (error) {
       console.log(error)

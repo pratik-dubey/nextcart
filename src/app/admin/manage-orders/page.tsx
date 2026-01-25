@@ -56,16 +56,21 @@ export default function ManageOrders() {
         getOrders()
     }, [])
 
-    useEffect(() => {
-        try {
-            const socket = getSocket()
-            socket.on("new-order", (newOrder) => {
-                setOrders(prev => [newOrder, ...prev!])
-            })
-        } catch (error) {
-            
+    useEffect(()=>{
+        const socket=getSocket()
+        socket?.on("new-order",(newOrder)=>{
+         setOrders((prev)=>[newOrder,...prev!])
+        })
+        socket.on("order-assigned",({orderId,assignedDeliveryBoy})=>{
+         setOrders((prev)=>prev?.map((o)=>(
+     o._id==orderId?{...o,assignedDeliveryBoy}:o
+   )))
+        })
+        return ()=>{
+         socket.off("new-order")
+         socket.off("order-assigned")
         }
-    }, [])
+       },[])
     return <div className="min-h-screen w-full bg-gray-50">
         <div className='fixed top-0 left-0 w-full backdrop-blur-lg bg-white/70 shadow-sm border-b z-50'>
             <div className='max-w-3xl mx-auto flex items-center gap-4 px-4 py-3'>

@@ -48,6 +48,8 @@ export async function GET(req:NextRequest,context: { params: Promise<{ id: strin
 
         await order.populate("assignedDeliveryBoy")
 
+        await emitEventHandler("order-assigned", {orderId:order._id,assignedDeliveryBoy:order.assignedDeliveryBoy})
+
 //   await emitEventHandler("order-assigned",{orderId:order._id,assignedDeliveryBoy:order.assignedDeliveryBoy})
 
 

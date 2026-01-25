@@ -3,7 +3,7 @@ import LiveMap from '@/components/LiveMap'
 import { getSocket } from '@/lib/socket'
 import { IUser } from '@/models/user.model'
 import axios from 'axios'
-import { ArrowLeft, Loader, Send, Sparkle } from 'lucide-react'
+import { ArrowLeft, Loader, Loader2, Send, Sparkle } from 'lucide-react'
 import { useParams, useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
@@ -165,6 +165,13 @@ function TrackOrder({ params }: { params: { orderId: string } }) {
           setLoading(false)
         }
       }
+
+    //   if(loading) {
+    //     return <div className='flex items-center flex-col justify-center min-h-[50vh] text-gray-600'>
+    //         <Loader2 className='animate-spin w-8 h-8'/>
+    //         <h1>Loading your orders ...</h1>
+    //     </div>
+    // }
     return (
         <div className='w-full min-h-screen bg-linear-to-b from-green-50 to-white'>
             <div className='max-w-2xl mx-auto pb-24'>

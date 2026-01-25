@@ -116,7 +116,7 @@ text-green-200 capitalize tracking-wide"
                 <PlusCircle className="w-5 h-5" /> Add Grocery
               </Link>
               <Link
-                href={""}
+                href={"/admin/view-grocery"}
                 className="flex items-center gap-3 p-3 bg-white/10 hover:bg-white-20 hover:pl-4 rounded-lg transition-all"
               >
                 <Boxes className="w-5 h-5" />
@@ -226,7 +226,7 @@ font-semibold px-4 py-2 rounded-full hover:bg-green-100 transition-all"
                 <PlusCircle className="w-5 h-5" /> Add Grocery
               </Link>
               <Link
-                href={""}
+                href={"/admin/view-grocery"}
                 className="flex items-center gap-2 bg-white text-green-700
 font-semibold px-4 py-2 rounded-full hover:bg-green-100 transition-all"
               >

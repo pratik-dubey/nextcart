@@ -1,13 +1,48 @@
 'use client'
-import { IOrder } from '@/models/order.model'
+// import { IOrder } from '@/models/order.model'
 import axios from 'axios'
 import { ArrowLeft, Loader2, PackageSearch } from 'lucide-react'
-import { div } from 'motion/react-client'
+// import { div } from 'motion/react-client'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import {motion} from "motion/react"
 import UserOrderCard from '@/components/UserOrderCard'
+import { IUser } from '@/models/user.model'
+import { getSocket } from '@/lib/socket'
 
+interface IOrder {
+  _id?: string
+  userId: string
+  items: [
+      {
+          grocery: string,
+          name: string,
+          price: string,
+          unit: string,
+          image: string
+          quantity: number
+      }
+  ]
+  ,
+  isPaid: boolean
+  totalAmount: number,
+  paymentMethod: "cod" | "online"
+  address: {
+      fullName: string,
+      mobile: string,
+      city: string,
+      state: string,
+      pincode: string,
+      fullAddress: string,
+      latitude: number,
+      longitude: number
+  }
+  assignment?: string
+  assignedDeliveryBoy?: IUser
+  status: "pending" | "out of delivery" | "delivered",
+  createdAt?: Date
+  updatedAt?: Date
+}
 function MyOrders() {
     const router = useRouter()
     const [orders, setOrders] = useState<IOrder[]>() 
@@ -20,11 +55,24 @@ function MyOrders() {
                 setLoading(false)
             } catch (error) {
                 console.log(error)
+                // setLoading(false)
             }
         }
 
         getMyOrders()
     },[])
+
+   // updating assigned delivery of order with orderid which is when accepted by delivery boy
+    useEffect(()=>{
+      const socket=getSocket()
+      socket.on("order-assigned",({orderId,assignedDeliveryBoy})=>{
+      setOrders((prev)=>prev?.map((o)=>(
+        o._id==orderId?{...o,assignedDeliveryBoy}:o
+      )))
+      })
+      
+      return ()=>{socket.off("order-assigned")}
+        },[])
 
     if(loading) {
         return <div className='flex items-center flex-col justify-center min-h-[50vh] text-gray-600'>
