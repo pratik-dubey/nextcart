@@ -51,63 +51,108 @@
 
 
 
-import { NextRequest, NextResponse } from "next/server";
-import { auth } from "./auth";
+// import { NextRequest, NextResponse } from "next/server";
+// import { auth } from "./auth";
 
-export async function proxy(req: NextRequest) {
-  const { pathname } = req.nextUrl;
+// export async function proxy(req: NextRequest) {
+//   const { pathname } = req.nextUrl;
 
 
-  if (pathname === "/api/user/stripe/webhook") {
-    return NextResponse.next();
-  }
+//   if (pathname === "/api/user/stripe/webhook") {
+//     return NextResponse.next();
+//   }
 
-  if (pathname.startsWith("/api/socket")) {
-    return NextResponse.next();
-  }
+//   if (pathname.startsWith("/api/socket")) {
+//     return NextResponse.next();
+//   }
   
-  if (pathname.startsWith("/api/chat")) {
-    return NextResponse.next();
-  }
+//   if (pathname.startsWith("/api/chat")) {
+//     return NextResponse.next();
+//   }
   
 
-  const publicRoutes = [
-    "/auth/signin",
-    "/auth/signup",
-    "/api/auth",
-    "/_next",
-    "/favicon.ico",
-  ];
+//   const publicRoutes = [
+//     "/auth/signin",
+//     "/auth/signup",
+//     "/api/auth",
+//     "/_next",
+//     "/favicon.ico",
+//   ];
 
-  if (publicRoutes.some((path) => pathname.startsWith(path))) {
-    return NextResponse.next();
-  }
+//   if (publicRoutes.some((path) => pathname.startsWith(path))) {
+//     return NextResponse.next();
+//   }
 
- const session = await auth()
+//  const session = await auth()
 
-  if (!session) {
-    const loginUrl = new URL("/auth/signin", req.url);
-    loginUrl.searchParams.set("callbackUrl", req.url);
-    return NextResponse.redirect(loginUrl);
-  }
+//   if (!session) {
+//     const loginUrl = new URL("/auth/signin", req.url);
+//     loginUrl.searchParams.set("callbackUrl", req.url);
+//     return NextResponse.redirect(loginUrl);
+//   }
 
-  const role = session.user?.role
+//   const role = session.user?.role
 
-  if (pathname.startsWith("/user") && role !== "user") {
-    return NextResponse.redirect(new URL("/unauthorized", req.url));
-  }
-  if (pathname.startsWith("/delivery") && role !== "deliveryBoy") {
-    return NextResponse.redirect(new URL("/unauthorized", req.url));
-  }
-  if (pathname.startsWith("/admin") && role !== "admin") {
-    return NextResponse.redirect(new URL("/unauthorized", req.url));
-  }
+//   if (pathname.startsWith("/user") && role !== "user") {
+//     return NextResponse.redirect(new URL("/unauthorized", req.url));
+//   }
+//   if (pathname.startsWith("/delivery") && role !== "deliveryBoy") {
+//     return NextResponse.redirect(new URL("/unauthorized", req.url));
+//   }
+//   if (pathname.startsWith("/admin") && role !== "admin") {
+//     return NextResponse.redirect(new URL("/unauthorized", req.url));
+//   }
 
-  return NextResponse.next();
+//   return NextResponse.next();
+// }
+
+// export const config = {
+//   matcher: [
+//     "/((?!api/auth|api/user/stripe/webhook|auth|_next/static|_next/image|favicon.ico).*)",
+//   ],
+// };
+
+
+
+
+import { NextRequest, NextResponse } from "next/server"
+import { auth } from "./auth"
+
+export async function proxy(req:NextRequest){
+
+    const {pathname}=req.nextUrl
+   
+    const publicRoutes=["/login","/register","/api/auth","/unauthorized"]
+     if(publicRoutes.some((path)=>pathname.startsWith(path))){
+        return NextResponse.next()
+     }
+const session=await auth()
+
+if(!session){
+  const loginUrl=new URL("/login",req.url)
+   loginUrl.searchParams.set("callbackUrl",req.url)
+   return NextResponse.redirect(loginUrl)
+}
+
+const role=session.user?.role
+if(pathname.startsWith("/user") && role!=="user"){
+  return NextResponse.redirect(new URL("/unauthorized",req.url))
+}
+if(pathname.startsWith("/delivery") && role!=="deliveryBoy"){
+  return NextResponse.redirect(new URL("/unauthorized",req.url))
+}
+if(pathname.startsWith("/admin") && role!=="admin"){
+  return NextResponse.redirect(new URL("/unauthorized",req.url))
+}
+
+
+return NextResponse.next()
+
 }
 
 export const config = {
-  matcher: [
-    "/((?!api/auth|api/user/stripe/webhook|auth|_next/static|_next/image|favicon.ico).*)",
-  ],
-};
+  matcher:'/((?!api|_next/static|_next/image|favicon.ico).*)',
+}
+
+
+// req------middleware------server
