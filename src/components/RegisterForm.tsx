@@ -66,7 +66,7 @@ px-6 py-10 bg-white relative"
         Create Account
       </motion.h1>
       <p className="text-gray-600 mb-2 flex items-center gap-1">
-        Join Sprynt today <Leaf className="h-5 w-5 text-green-600" />
+        Join Nextcart today <Leaf className="h-5 w-5 text-green-600" />
       </p>
       <motion.form
         onSubmit={handleRegister}

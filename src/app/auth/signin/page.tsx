@@ -65,7 +65,7 @@ px-6 py-10 bg-white relative"
         transition={{ duration: 0.6 }}
         className="text-4xl font-extrabold text-green-700 mb-2"
       >
-        Welcome back to Sprynt
+        Welcome back to Nextcart
       </motion.h1>
       <p className="text-gray-600 mb-2 flex items-center gap-1">
         Please sign in to continue
