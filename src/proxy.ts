@@ -77,79 +77,10 @@
 
 import { NextRequest, NextResponse } from "next/server";
 
-export async function proxy(req: NextRequest) {
-  const { pathname } = req.nextUrl;
-
-  // ===== infra / webhooks / sockets =====
-  if (
-    pathname === "/api/user/stripe/webhook" ||
-    pathname.startsWith("/api/socket") ||
-    pathname.startsWith("/api/chat")
-  ) {
-    return NextResponse.next();
-  }
-
-  // ===== public routes =====
-  const publicRoutes = [
-    "/auth/signin",
-    "/auth/signup",
-    "/api/auth",
-    "/_next",
-    "/favicon.ico",
-  ];
-
-  if (publicRoutes.some((path) => pathname.startsWith(path))) {
-    return NextResponse.next();
-  }
-
-  // =====================================================
-  // 🔑 FIRST-TIME USERS (NO COOKIE) — EXIT EARLY
-  // =====================================================
-  const hasSessionCookie =
-    req.cookies.has("__Secure-next-auth.session-token") ||
-    req.cookies.has("next-auth.session-token");
-
-  if (!hasSessionCookie) {
-    if (pathname === "/") {
-      return NextResponse.next();
-    }
-
-    const loginUrl = new URL("/auth/signin", req.url);
-    loginUrl.searchParams.set("callbackUrl", req.url);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  // =====================================================
-  // 🔐 AUTH + ROLE CHECKS (LAZY IMPORT — THIS IS THE KEY)
-  // =====================================================
-  const { auth } = await import("./auth");
-  const session = await auth();
-
-  const role = session?.user?.role;
-
-  if (!session && pathname !== "/") {
-    const loginUrl = new URL("/auth/signin", req.url);
-    loginUrl.searchParams.set("callbackUrl", req.url);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  if (pathname.startsWith("/user") && role !== "user") {
-    return NextResponse.redirect(new URL("/unauthorized", req.url));
-  }
-
-  if (pathname.startsWith("/delivery") && role !== "deliveryBoy") {
-    return NextResponse.redirect(new URL("/unauthorized", req.url));
-  }
-
-  if (pathname.startsWith("/admin") && role !== "admin") {
-    return NextResponse.redirect(new URL("/unauthorized", req.url));
-  }
-
+export async function proxy(_req: NextRequest) {
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/((?!api/auth|api/user/stripe/webhook|auth|_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ["/:path*"],
 };
