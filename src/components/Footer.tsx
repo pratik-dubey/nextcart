@@ -2,7 +2,7 @@
 import React from 'react'
 import {motion} from "motion/react"
 import Link from 'next/link'
-import { Facebook, Instagram, Mail, MapPin, Phone, TwitterIcon } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, TwitterIcon } from 'lucide-react'
 
 function Footer() {
   return (
@@ -24,8 +24,8 @@ function Footer() {
     <h2 className='text-xl font-semibold mb-3'>Quick Links</h2>
     <ul className='space-y-2 text-green-100 text-sm'>
         <li><Link href={"/"} className='hover:text-white transition'>Home</Link></li>
-        <li><Link href={"/cart"} className='hover:text-white transition'>Cart</Link></li>
-        <li><Link href={"/my-orders"} className='hover:text-white transition'>My Orders</Link></li>
+        <li><Link href={"/user/cart"} className='hover:text-white transition'>Cart</Link></li>
+        <li><Link href={"/user/my-orders"} className='hover:text-white transition'>My Orders</Link></li>
     </ul>
 </div>
 
@@ -33,24 +33,24 @@ function Footer() {
      <h3 className="text-xl font-semibold mb-3">Contact Us</h3>
           <ul className="space-y-2 text-green-100 text-sm">
             <li className="flex items-center gap-2">
-              <MapPin size={16} /> Mumbai, India
+              <MapPin size={16} /> Sultanpur, India
             </li>
             <li className="flex items-center gap-2">
               <Phone size={16} /> +91 0000000000
             </li>
             <li className="flex items-center gap-2">
-              <Mail size={16} /> support@snapcart.in
+              <Mail size={16} /> pratikdubey091@gmail.com
             </li>
           </ul>
           {/* 🌐 Social Links */}
           <div className="flex gap-4 mt-4">
-            <Link href="https://facebook.com" target="_blank">
+            {/* <Link href="https://facebook.com" target="_blank">
               <Facebook className="w-5 h-5 hover:text-white transition" />
+            </Link> */}
+            <Link href="https://www.linkedin.com/in/pratikdubey091/" target="_blank">
+              <Linkedin className="w-5 h-5 hover:text-white transition" />
             </Link>
-            <Link href="https://instagram.com" target="_blank">
-              <Instagram className="w-5 h-5 hover:text-white transition" />
-            </Link>
-            <Link href="https://twitter.com" target="_blank">
+            <Link href="https://x.com/D91270252Dubey" target="_blank">
               <TwitterIcon className="w-5 h-5 hover:text-white transition" />
             </Link>
           </div>
