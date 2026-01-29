@@ -1,5 +1,8 @@
-## 🚀 **NextCart** 
-## *Real-time Quick E-Commerce & Delivery Platform*
+## 🚀 **NextCart**  
+## *Real-time Quick E-Commerce & Delivery Platform*  
+
+🔗 **[Visit Now](https://nextcart-sprynt.vercel.app/)**
+
 **Next.js 14 • Socket.IO • Stripe • MongoDB • AI Chat**
 
 ```bash
@@ -285,3 +288,8 @@ Full-Stack Developer
 GitHub: https://github.com/pratik-dubey
 
 LinkedIn: https://linkedin.com/in/pratik-dubey-02888429b
+
+## 🌐 Live Website
+
+🚀 **[Visit NextCart Live →](https://nextcart-sprynt.vercel.app/)**  
+Experience the full real-time e-commerce & delivery workflow in action.
