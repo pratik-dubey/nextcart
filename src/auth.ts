@@ -4,6 +4,7 @@ import User from "./models/user.model";
 import bcrypt from "bcryptjs";
 import connectDb from "./lib/db";
 import Google from "next-auth/providers/google";
+export const dynamic = "force-dynamic";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -40,8 +41,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
   ],
   callbacks: {
@@ -94,6 +95,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/auth/signin",
     error: "/auth/signin",
   },
+  cookies: {
+    sessionToken: {
+      name: "__Secure-next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: true,
+      },
+    },
+  },  
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
