@@ -12,9 +12,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         email: { label: "email" },
         password: { label: "password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
         await connectDb();
-        const normalizedEmail = credentials.email?.trim().toLowerCase();
+        const normalizedEmail = credentials.email;
         const password = credentials.password as string | undefined;
 
         if (!normalizedEmail || !password) {

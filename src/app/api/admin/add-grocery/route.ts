@@ -4,7 +4,7 @@ import connectDb from "@/lib/db";
 import Grocery from "@/models/grocery.model";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   // FormData ek universal courier-package format hai jo Web API provide karti hai — Next.js ise banata nahi, sirf req.formData() deke package kholne ka counter deta hai.
 
   //     🧠 When should you use req.formData()?

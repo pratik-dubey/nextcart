@@ -5,19 +5,12 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft, Building, CreditCard, CreditCardIcon, Home, Loader2, LocateFixed, MapPin, Navigation, Phone, Search, Truck, User } from "lucide-react";
 import { RootState } from "@/redux/store";
 import { useSelector } from "react-redux";
-import { MapContainer, Marker, TileLayer, useMap } from "react-leaflet";
-import L, { LatLngExpression } from "leaflet";
-import 'leaflet/dist/leaflet.css'
 import axios from "axios";
-import { OpenStreetMapProvider } from "leaflet-geosearch";
 import OrderSuccess from "../order-success/page";
 
-const markerIcon = new L.Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/128/10740/10740589.png",
-  iconSize: [40, 40],
-  iconAnchor: [49, 20],
-  popupAnchor: [0, -32],
-})
+import dynamic from 'next/dynamic'
+const CheckOutMap=dynamic(()=>import("@/components/CheckoutMap"),{ssr:false})
+
 function Checkout() {
   const router = useRouter();
   const { userData } = useSelector((state: RootState) => state.user)
@@ -54,23 +47,6 @@ function Checkout() {
         }
     }, [userData])
 
-    const DraggableMarker:React.FC = () => {
-      const map = useMap();
-      useEffect(() => {
-        map.setView(position as LatLngExpression, 13, { animate: true });
-
-      }, [map, position])
-      return <Marker icon={markerIcon} 
-      draggable={true}
-      eventHandlers={{
-        dragend:(e: L.LeafletEvent) => {
-          const marker = e.target as L.Marker;
-          const {lat, lng} = e.target.getLatLng()
-          setPosition([lat, lng]);
-        }
-      }}
-      position={position as LatLngExpression}/>
-    }
 
     useEffect(() => {
       const fetchAddress = async() => {
@@ -90,6 +66,7 @@ function Checkout() {
 
     const handleSearch = async() => {
       setSearchLoading(true);
+      const {OpenStreetMapProvider}=await import("leaflet-geosearch")
       const provider = new OpenStreetMapProvider();
       const results = await provider.search({query: searchQuery});
       if(results) {
@@ -240,13 +217,7 @@ function Checkout() {
                             <button className='bg-green-600 text-white px-5 rounded-lg hover:bg-green-700 transition-all font-medium' onClick={handleSearch}>{searchLoading ? <Loader2 className='w-4 h-4 animate-spin' /> : "Search"}</button>
                         </div>
                         <div className='relative mt-6 h-[330px] rounded-xl overflow-hidden border border-gray-200 shadow-inner'>
-                       {position &&  <MapContainer center={position as LatLngExpression} zoom={13} scrollWheelZoom={true} className="w-full h-[300px] rounded-lg">
-                <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                <DraggableMarker />
-                
-            </MapContainer>}
+                       {position &&  <CheckOutMap position={position} setPosition={setPosition}/>}
 
             <motion.button
                               whileTap={{scale:0.92}}
