@@ -1,7 +1,7 @@
 ## 🚀 **NextCart**  
 ## *Real-time Quick E-Commerce & Delivery Platform*  
 
-🔗 **[Visit Now](https://nextcart-sprynt.vercel.app/)**
+🔗 **[Visit Now](https://nextcart.pratikdubey.dev/)**
 
 **Next.js 14 • Socket.IO • Stripe • MongoDB • AI Chat**
 
