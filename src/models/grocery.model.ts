@@ -11,7 +11,8 @@ export interface IGrocery {
   updatedAt?: Date;
 }
 
-// createdAt and updatedAt is made by us and timestamps is given by mongoose
+// createdAt and updatedAt is made by us and timestamps is given by 
+
 const grocerySchema = new mongoose.Schema<IGrocery>(
   {
     name: {
